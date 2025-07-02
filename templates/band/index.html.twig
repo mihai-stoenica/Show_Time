@@ -4,35 +4,59 @@
 
 {% block content %}
 
-    <h1>Band index</h1>
+    <div class="overflow-x-auto">
+        <table class="table">
+            <!-- head -->
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Genre</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- row 1 -->
+            {% for band in bands %}
+                <tr>
+                    <td>
+                        <div>{{ band.id }}</div>
+                    </td>
+                    <td>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar">
+                                <div class="mask mask-squircle h-12 w-12">
+                                    <img
+                                        src="https://img.daisyui.com/images/profile/demo/2@94.webp" {# TODO #}
+                                        alt="Avatar Tailwind CSS Component"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="font-bold">{{ band.name }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div>{{ band.genre.value }}</div>
+                    </td>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Genre</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for band in bands %}
-            <tr>
-                <td>{{ band.id }}</td>
-                <td>{{ band.name }}</td>
-                <td>{{ band.genre.value }}</td>
-                <td>
-                    <a href="{{ path('app_band_show', {'id': band.id}) }}" class="btn">show</a>
-                    <a href="{{ path('app_band_edit', {'id': band.id}) }}" class="btn">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path('app_band_new') }}" class="btn">Create new</a>
+                    <th>
+                        <a href="{{ path('app_band_show', {'id': band.id}) }}" class="btn btn-ghost btn-s">view</a>
+                        <a href="{{ path('app_band_edit', {'id': band.id}) }}" class="btn btn-ghost btn-s">edit</a>
+                    </th>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+            <!-- foot -->
+        </table>
+
+        <a href="{{ path('app_band_new') }}" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-l">Add new band</a>
+
+    </div>
 
 {% endblock %}
