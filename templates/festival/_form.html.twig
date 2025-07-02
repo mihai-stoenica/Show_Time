@@ -1,4 +1,24 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': ' flex flex-col items-center'}}) }}
+
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+
+    {{ form_label(form.location) }}
+    {{ form_widget(form.location, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+
+
+    {{ form_label(form.start_date) }}
+    {{ form_widget(form.start_date, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+
+    {{ form_label(form.end_date) }}
+    {{ form_widget(form.end_date, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+
+    {{ form_label(form.bands) }}
+    {{ form_widget(form.bands, {'attr': {'class': 'h-[100px] w-[100%] px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+
+<button class="btn mb-[3px]">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+
+
+

@@ -3,11 +3,17 @@
 {% block title %}Edit Festival{% endblock %}
 
 {% block body %}
-    <h1>Edit Festival</h1>
+    <div class="mt-[30px] flex flex-col items-center ">
+        <div class="w-fit p-6 flex flex-col items-center border rounded-[10px] shadow">
+            <h1 class="mb-[20px] font-bold">Edit Festival</h1>
 
-    {{ include('festival/_form.html.twig', {'button_label': 'Update'}) }}
+            {{ include('festival/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_festival_index') }}" class="btn">back to list</a>
+            <a href="{{ path('app_festival_index') }}" class="btn mb-[3px]">Back to list</a>
 
-    {{ include('festival/_delete_form.html.twig') }}
+            {{ include('festival/_delete_form.html.twig') }}
+        </div>
+
+    </div>
+
 {% endblock %}
