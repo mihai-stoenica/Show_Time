@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Band details{% endblock %}
+
+{% block content %}
+    <div class="p-6">
+        <div class="bg-base-200 shadow-xl">
+            <div class="card-body">
+
+                <h2 class="text-3xl font-bold">Festival Details</h2>
+
+                <div class="mt-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-400">ID</p>
+                            <p class="text-lg">{{ festival.id }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-400">Name</p>
+                            <p class="text-lg font-semibold">{{ festival.name }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-400">Bands</p>
+                            <ul>
+                                {% for band in bands %}
+                                    <li><a href="{{ path('app_band_show', {'id': band.id}) }}">{{ band.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex gap-2">
+                    <a href="{{ path('app_festival_index') }}" class="btn btn-outline btn-sm">Back to list</a>
+                    <a href="{{ path('app_festival_edit', {'id': festival.id}) }}"
+                       class="btn btn-primary btn-sm">Edit</a>
+                    {{ include('festival/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
