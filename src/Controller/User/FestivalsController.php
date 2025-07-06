@@ -14,14 +14,12 @@ final class FestivalsController extends AbstractController
     #[Route('/festivals', name: 'app_festivals_user')]
     public function index(Request $request, FestivalRepository $festivalRepository, LoggerInterface $logger): Response
     {
-        $searchParam = $request->query->get('search');
+        $nameParam = $request->query->get('search');
+        $sortByNameParam = $request->query->get('sort');
+        $startDateParam = $request->query->get('startDate');
+        $endDateParam = $request->query->get('endDate');
 
-        if ($searchParam) {
-            $festivals = $festivalRepository->getBySearchParam($searchParam);
-        } else {
-            $festivals = $festivalRepository->findAll();
-        }
-
+        $festivals = $festivalRepository->getBySearchParam($nameParam, $sortByNameParam, $startDateParam, $endDateParam);
 
         return $this->render('festivals/index.html.twig', [
             'festivals' => $festivals,

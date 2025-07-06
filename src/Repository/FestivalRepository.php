@@ -41,12 +41,28 @@ class FestivalRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function getBySearchParam(string $searchParam): array
+    public function getBySearchParam(?string $name, ?string $sort, ?string $startDate, ?string $endDate): array
     {
-        return $this->createQueryBuilder('f')
-            ->where('f.name LIKE :searchParam')
-            ->setParameter('searchParam', '%' . $searchParam . '%')
-            ->getQuery()
-            ->getResult();
+        $query = $this->createQueryBuilder('f');
+
+        if ($name) {
+            $query->andWhere('f.name LIKE :name')
+                ->setParameter('name', '%' . $name . '%');
+        }
+
+        if ($sort === 'asc' || $sort === 'desc') {
+            $query->orderBy('f.name', $sort);
+        }
+
+        if ($startDate && $endDate) {
+            $startDate = date_create($startDate);
+            $endDate = date_create($endDate);
+
+            $query->andWhere('f.start_date BETWEEN :startDate AND :endDate')
+                ->setParameter('startDate', $startDate)
+                ->setParameter('endDate', $endDate);
+        }
+
+        return $query->getQuery()->getResult();
     }
 }
