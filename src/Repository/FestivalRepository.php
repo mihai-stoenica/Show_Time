@@ -40,4 +40,13 @@ class FestivalRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function getBySearchParam(string $searchParam): array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.name LIKE :searchParam')
+            ->setParameter('searchParam', '%' . $searchParam . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

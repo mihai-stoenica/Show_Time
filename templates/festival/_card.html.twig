@@ -1,0 +1,15 @@
+<div class="card bg-base-100 image-full w-80 shadow-sm">
+    <figure>
+        <img
+            src="{{ asset('images/festival card.jpg') }}"
+            alt="Festival"/>
+    </figure>
+    <div class="card-body">
+        <h2 class="card-title">{{ festival.name }}</h2>
+        <p>📅{{ festival.startDate|date('d/m/Y') }} - {{ festival.endDate|date('d/m/Y') }}</p>
+        <p>📍{{ festival.location }}</p>
+        <div class="card-actions justify-end">
+            <a class="btn btn-primary" href="{{ path('app_booking_new', {'id': festival.id}) }}">Book now</a>
+        </div>
+    </div>
+</div>

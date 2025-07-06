@@ -1,0 +1,53 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block content %}
+    <div>
+        <div class=" overflow-y-scroll max-h-[500px]">
+            <table class="table">
+                <thead class="sticky top-0 bg-base-200 z-2">
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Full Name</th>
+                    <th>Festival</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- row 1 -->
+                {% for booking in bookings %}
+                    <tr>
+                        <td>
+                            <div>{{ booking.id }}</div>
+                        </td>
+                        <td>
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <div class="font-bold">{{ booking.email }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>{{ booking.fullName }}</div>
+                        </td>
+                        <td>
+                            <div>{{ booking.festival.name }}</div>
+                        </td>
+                        <th>
+                            <a href="#" class="btn btn-ghost btn-s">view</a>
+                        </th>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+                <!-- foot -->
+            </table>
+        </div>
+
+
+    </div>
+{% endblock %}

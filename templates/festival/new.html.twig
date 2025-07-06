@@ -1,11 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends './layouts/base.html.twig' %}
 
 {% block title %}New Band{% endblock %}
 
 {% block body %}
-    <h1>Create new Festival</h1>
+    <div class="mt-[30px] flex flex-col items-center ">
+        <div class="w-fit p-6 flex flex-col items-center border rounded-[10px] shadow">
+            <h1 class="font-bold mb-[20px]">Create new Festival</h1>
 
-    {{ include('festival/_form.html.twig') }}
+            {{ include('festival/_form.html.twig') }}
 
-    <a href="{{ path('app_festival_index') }}">back to list</a>
+            <a href="{{ path('app_festival_index') }}" class="btn mb-[3px]">Back to list</a>
+        </div>
+    </div>
+
 {% endblock %}

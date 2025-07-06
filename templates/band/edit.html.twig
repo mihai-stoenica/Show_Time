@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends './layouts/base.html.twig' %}
 
 {% block title %}Edit Band{% endblock %}
 
@@ -10,7 +10,7 @@
             <h1 class="mb-[20px] font-bold">Edit Band</h1>
             {{ include('band/_form.html.twig', {'button_label': 'Update'}) }}
 
-            <a href="{{ path('app_band_index') }}" class="btn mb-[3px]">Back to list</a>
+            <a href="{{ path('app_band_show', {'id': band.id}) }}" class="btn mb-[3px]">Cancel</a>
 
             {{ include('band/_delete_form.html.twig') }}
         </div>

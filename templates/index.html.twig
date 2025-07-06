@@ -1,0 +1,61 @@
+{% extends './layouts/home.html.twig' %}
+
+{% block body_class %}
+    min-h-screen
+{% endblock %}
+
+{% block main_class %}
+    w-full max-w-screen
+{% endblock %}
+
+{% block landingPage %}
+
+    <div class="hero bg-base-200 min-h-screen mb-5">
+        <img src="{{ asset('images/pexels-vishnurnair-1105666.jpg') }}"
+             class="absolute inset-0 w-full h-full object-cover z-0" alt="Background"/>
+        <div class="hero-content text- -mt-100 -ml-200">
+            <div class="max-w-md">
+                <h1 class="text-5xl font-bold">It's ShowTime</h1>
+                <p class="py-6">
+                    Discover and book the best festivals around you — from music and food to art and culture. Easy
+                    booking, real-time updates, and unforgettable experiences all in one place.
+                </p>
+                <a class="btn btn-neutral" href="#carousels">Get Started</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div id="carousels" class="w-full flex flex-wrap justify-center gap-20 px-4 mb-10">
+        <div class="flex flex-col items-center w-80">
+            <h2 class="text-xl font-bold mb-4 text-center  pb-2 w-full"> 🔥Most Featured</h2>
+            <section class="carousel w-80 overflow-x-auto whitespace-nowrap space-x-4">
+                {% for festival in most_featured %}
+                    <div class="carousel-item w-80 inline-block">
+                        {% include './festival/_card.html.twig' with {'festival': festival } %}
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+
+        <div class="flex flex-col items-center w-80">
+            <h2 class="text-xl font-bold mb-4 text-center  pb-2 w-full">💰Best Deals</h2>
+            <section class="carousel w-80 overflow-x-auto whitespace-nowrap space-x-4">
+                {% for festival in most_featured %}
+                    <div class="carousel-item w-80 inline-block">
+                        {% include './festival/_card.html.twig' with {'festival': festival } %}
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+
+    </div>
+    <div class="w-full flex flex-col items-center">
+        <a href="{{ path('app_festivals_user') }}"><h2 class="font-semibold">👀See all</h2></a>
+    </div>
+
+
+{% endblock %}

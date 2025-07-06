@@ -16,6 +16,9 @@
     {{ form_label(form.bands) }}
     {{ form_widget(form.bands, {'attr': {'class': 'h-[100px] w-[100%] px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
 
+
+    {{ form_errors(form) }}
+
 <button class="btn mb-[3px]">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
 

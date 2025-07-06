@@ -1,0 +1,15 @@
+{{ form_start(form, {'attr': {'class': ' flex flex-col items-center'}}) }}
+
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+
+    {{ form_label(form.fullName) }}
+    {{ form_widget(form.fullName, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+
+
+<button class="btn mb-[3px]">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+
+
+

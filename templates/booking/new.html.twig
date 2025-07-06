@@ -1,4 +1,4 @@
-{% extends './layouts/base.html.twig' %}
+{% extends './layouts/home.html.twig' %}
 
 {% block title %}New Band{% endblock %}
 
@@ -6,11 +6,11 @@
 
     <div class="mt-[30px] flex flex-col items-center ">
         <div class="w-fit p-6 flex flex-col items-center border rounded-[10px] shadow">
-            <h1 class="font-bold mb-[20px]">Create new Band</h1>
+            <h1 class="font-bold mb-[20px]">Create new Booking</h1>
 
-            {{ include('band/_form.html.twig') }}
+            {{ include('booking/_form.html.twig') }}
 
-            <a href="{{ path('app_band_index') }}" class="btn mb-[3px]">Back to list</a>
+            <a href="#" class="btn mb-[3px]">Home</a>
         </div>
     </div>
 {% endblock %}

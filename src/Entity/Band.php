@@ -7,6 +7,7 @@ use App\Repository\BandRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BandRepository::class)]
 class Band
@@ -16,9 +17,11 @@ class Band
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(enumType: MusicGenre::class)]
     private ?MusicGenre $genre = null;
 

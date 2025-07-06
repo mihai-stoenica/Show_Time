@@ -1,0 +1,56 @@
+{% extends './layouts/home.html.twig' %}
+
+{% block body_class %}
+    h-screen overflow-hidden
+{% endblock %}
+
+{% block main_class %}
+    h-full overflow-hidden bg-base-300
+{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col h-full overflow-hidden ">
+        <div class="flex flex-row w-full justify-center mt-5">
+            <form method="GET" action="{{ path('app_festivals_user') }}">
+                <label class="input mr-1">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g
+                            stroke-linejoin="round"
+                            stroke-linecap="round"
+                            stroke-width="2.5"
+                            fill="none"
+                            stroke="currentColor"
+                        >
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" class="grow" name="search" placeholder="Search"
+                           value="{{ app.request.get('search') }}"/>
+                </label>
+            </form>
+
+
+            <button class="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md ml-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path d="M3 4h18M6 10h12M10 16h4" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+                <span>Filter</span>
+            </button>
+        </div>
+
+        <div class="flex-grow w-full overflow-y-hidden h-full">
+            <div class="flex flex-col items-center overflow-y-auto h-full my-10 ">
+                <div class="grid grid-cols-4 gap-4">
+                    {% for festival in festivals %}
+                        {% include './festival/_card.html.twig' with {'festival': festival } %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
