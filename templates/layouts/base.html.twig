@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="dark" class="h-full">
+<html class="h-full">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -10,7 +10,7 @@
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
 </head>
-<body class="h-full overflow-hidden">
+<body data-theme="dark" class="h-full overflow-hidden">
 {% block body %}
     <div class="h-full grid grid-cols-[250px_1fr]">
         <aside class="bg-base-200 p-4 overflow-y-auto">

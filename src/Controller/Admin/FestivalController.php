@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/festival')]
+#[Route('/admin/festival')]
 final class FestivalController extends AbstractController
 {
     #[Route(name: 'app_festival_index', methods: ['GET'])]
