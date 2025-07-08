@@ -1,11 +1,11 @@
 {% extends './layouts/home.html.twig' %}
 
 {% block body_class %}
-    min-h-screen
+    min-h-screen  flex flex-col h-full
 {% endblock %}
 
 {% block main_class %}
-    h-full overflow-hidden bg-base-300 flex flex-col
+    h-full overflow-hidden bg-[#F5F6F5] flex flex-col
 {% endblock %}
 
 {% set currentSort = app.request.get('sort') %}
@@ -41,7 +41,7 @@
                         </svg>
                         Filter
                     </div>
-                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                    <ul tabindex="0" class="dropdown-content menu rounded-box z-1 w-52 p-2 shadow-sm bg-base-100 ">
                         <li>
                             <button type="submit" name="sort" value="{{ newSort }}">
                                 <span>Name</span>

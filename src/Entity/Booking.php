@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BookingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BookingRepository::class)]
 class Booking
@@ -12,14 +13,16 @@ class Booking
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'bookings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Festival $festival = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $fullName = null;
 

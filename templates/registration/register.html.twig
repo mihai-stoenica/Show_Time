@@ -1,0 +1,30 @@
+{% extends './layouts/home.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+    <div class="flex flex-col items-center">
+        <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+            <legend class="fieldset-legend">Register</legend>
+
+            {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm) }}
+
+            {{ form_row(registrationForm.email, {'attr': {'class': 'input'}}) }}
+            {{ form_row(registrationForm.plainPassword) }}
+
+
+            <button type="submit" class="btn btn-neutral mt-4">Register</button>
+            {{ form_end(registrationForm) }}
+
+            
+        </fieldset>
+    </div>
+
+
+
+
+
+{% endblock %}

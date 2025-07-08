@@ -1,10 +1,13 @@
+{{ form_errors(form) }}
 {{ form_start(form, {'attr': {'class': ' flex flex-col items-center'}}) }}
 
     {{ form_label(form.name) }}
     {{ form_widget(form.name, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+    {{ form_errors(form.name) }}
 
     {{ form_label(form.genre) }}
     {{ form_widget(form.genre, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+    {{ form_errors(form.genre) }}
 
 <button class="btn mb-[3px]">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

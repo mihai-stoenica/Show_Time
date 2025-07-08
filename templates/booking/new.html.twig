@@ -1,16 +1,9 @@
 {% extends './layouts/home.html.twig' %}
 
-{% block title %}New Band{% endblock %}
+{% block title %}Book a festival{% endblock %}
 
-{% block body %}
+{% block content %}
+    
+    {{ include('booking/_form.html.twig') }}
 
-    <div class="mt-[30px] flex flex-col items-center ">
-        <div class="w-fit p-6 flex flex-col items-center border rounded-[10px] shadow">
-            <h1 class="font-bold mb-[20px]">Create new Booking</h1>
-
-            {{ include('booking/_form.html.twig') }}
-
-            <a href="#" class="btn mb-[3px]">Home</a>
-        </div>
-    </div>
 {% endblock %}

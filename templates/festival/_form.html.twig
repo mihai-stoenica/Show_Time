@@ -1,21 +1,26 @@
+{{ form_errors(form) }}
+
 {{ form_start(form, {'attr': {'class': ' flex flex-col items-center'}}) }}
 
     {{ form_label(form.name) }}
     {{ form_widget(form.name, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+    {{ form_errors(form.name) }}
 
     {{ form_label(form.location) }}
     {{ form_widget(form.location, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
-
+    {{ form_errors(form.location) }}
 
     {{ form_label(form.start_date) }}
     {{ form_widget(form.start_date, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+    {{ form_errors(form.start_date) }}
 
     {{ form_label(form.end_date) }}
     {{ form_widget(form.end_date, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+    {{ form_errors(form.end_date) }}
 
     {{ form_label(form.bands) }}
     {{ form_widget(form.bands, {'attr': {'class': 'h-[100px] w-[100%] px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
-
+    {{ form_errors(form.bands) }}
 
     {{ form_errors(form) }}
 

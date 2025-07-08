@@ -1,41 +1,96 @@
-{% extends './layouts/base.html.twig' %}
+{% extends './layouts/home.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
 
-{% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+{% block content %}
+    <div class="flex flex-col items-center">
+        <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 mt-10">
+            <legend class="fieldset-legend">Login</legend>
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            <form method="post">
+
+                <label class="label">Email</label>
+                <input type="email" value="{{ last_username }}" name="_username" id="username" placeholder="Email"
+                       class="input"/>
+
+                <label class="label">Password</label>
+                <input type="password" name="_password" id="password"
+                       autocomplete="current-password"
+                       required class="input" placeholder="Password"/>
+
+                <input type="hidden" name="_csrf_token" data-controller="csrf-protection"
+                       value="{{ csrf_token('auth_token') }}">
+                <div class="flex flex-row items-center mt-4 justify-between">
+                    <button type="submit" class="btn btn-neutral ">Login</button>
+                    <span>Don't have an account? <a href="/register"
+                                                    class="underline">Register</a></span>
+                </div>
+
+                {% if error %}
+                    <div
+                        class="alert alert-danger ">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }} <a
+                            href="{{ path('app_logout') }}" class="underline">Logout</a>
+                    </div>
+                {% endif %}
+
+            </form>
+
+        </fieldset>
+    </div>
+
+    {#
+    <div class="flex flex-row justify-center">
+
+        <form method="post" class="flex flex-col w-fit items-center border px-2 py-4 rounded mt-20">
+
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.userIdentifier }}, <a
+                        href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+            <div>
+
             </div>
-        {% endif %}
+            <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+            <label for="username">Email</label>
+            <input type="email" value="{{ last_username }}" name="_username" id="username"
+                   class="form-control border rounded"
+                   autocomplete="email" required autofocus>
+            <label for="password">Password</label>
+            <input type="password" name="_password" id="password"
+                   autocomplete="current-password"
+                   required>
+            <input type="hidden" name="_csrf_token" data-controller="csrf-protection"
+                   value="{{ csrf_token('auth_token') }}">
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control"
-               autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password"
-               required>
-        <input type="hidden" name="_csrf_token" data-controller="csrf-protection"
-               value="{{ csrf_token('auth_token') }}">
 
-        {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
 
-        <div class="checkbox mb-3">
-            <input type="checkbox" name="_remember_me" id="_remember_me">
-            <label for="_remember_me">Remember me</label>
-        </div>
-        #}
+            <div class="checkbox mb-3">
+                <input type="checkbox" name="_remember_me" id="_remember_me">
+                <label for="_remember_me">Remember me</label>
+            </div>
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+
+            <button class="btn btn-lg btn-primary" type="submit">
+                Sign in
+            </button>
+
+        </form>
+
+    </div>
+    #}
+
 {% endblock %}

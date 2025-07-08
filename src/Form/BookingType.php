@@ -11,8 +11,10 @@ class BookingType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        if (!$options['hide_email']) {
+            $builder->add('email');
+        }
         $builder
-            ->add('email')
             ->add('fullName');
     }
 
@@ -20,6 +22,7 @@ class BookingType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Booking::class,
+            'hide_email' => false,
         ]);
     }
 }

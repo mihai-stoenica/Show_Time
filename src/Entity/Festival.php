@@ -8,7 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
+#[Assert\Callback('validateDates')]
 #[ORM\Entity(repositoryClass: FestivalRepository::class)]
 class Festival
 {
@@ -17,11 +19,11 @@ class Festival
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank(message: 'The name is required')]
+    #[Assert\NotBlank(message: 'This field is required')]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'This field is required')]
     #[ORM\Column(length: 255)]
     private ?string $location = null;
 
@@ -156,6 +158,15 @@ class Festival
         }
 
         return $this;
+    }
+
+    public function validateDates(ExecutionContextInterface $context): void
+    {
+        if ($this->start_date > $this->end_date) {
+            $context->buildViolation('Start date must be before end date')
+                ->atPath('end_date')
+                ->addViolation();
+        }
     }
 
 }
