@@ -41,6 +41,11 @@ class Festival
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $end_date = null;
 
+    #[Assert\NotBlank(message: 'This field is required')]
+    #[Assert\GreaterThanOrEqual(0, message: 'Price must be 0 or more')]
+    #[ORM\Column(type: Types::FLOAT)]
+    private float $price;
+
     /**
      * @var Collection<int, Booking>
      */
@@ -127,6 +132,17 @@ class Festival
     {
         $this->end_date = $end_date;
 
+        return $this;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): static
+    {
+        $this->price = $price;
         return $this;
     }
 

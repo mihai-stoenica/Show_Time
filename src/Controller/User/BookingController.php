@@ -22,12 +22,12 @@ final class BookingController extends AbstractController
 
         if ($this->getUser()) {
             $booking->setEmail($this->getUser()->getEmail());
+            $this->getUser()->addBooking($booking);
             $formOptions['hide_email'] = true;
         }
 
         $form = $this->createForm(BookingType::class, $booking, $formOptions);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $booking->setFestival($festival);
@@ -41,6 +41,37 @@ final class BookingController extends AbstractController
             'form' => $form->createView(),
             'booking' => $booking,
         ]);
+    }
 
+    #[Route('/', name: 'app_booking_user_index', methods: ['GET'])]
+    public function show(Booking $booking): Response
+    {
+
+        if ($this->getUser()) {
+
+            $bookings = $this->getUser()->getBookings();
+            $totalPrice = $this->getUser()->computeTotalPrice();
+
+            return $this->render('booking/user_bookings.html.twig', [
+                'bookings' => $this->getUser()->getBookings(),
+                'totalPrice' => $totalPrice,
+            ]);
+        }
+        return $this->redirectToRoute('app_login');
+    }
+
+    #[Route('/cancel/{id}', name: 'app_booking_user_cancel', methods: ['POST'])]
+    public function cancel(Booking $booking, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()) {
+            $bookings = $this->getUser()->getBookings();
+            if ($bookings->contains($booking)) {
+                $entityManager->remove($booking);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_booking_user_index');
+            }
+        }
+        return $this->redirectToRoute('app_login');
     }
 }

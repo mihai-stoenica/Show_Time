@@ -13,7 +13,7 @@ class Booking
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-    
+
     #[ORM\ManyToOne(inversedBy: 'bookings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Festival $festival = null;
@@ -25,6 +25,10 @@ class Booking
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $fullName = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bookings')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -64,6 +68,17 @@ class Booking
     {
         $this->fullName = $fullName;
 
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
         return $this;
     }
 }

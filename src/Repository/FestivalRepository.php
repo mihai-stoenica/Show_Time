@@ -41,7 +41,7 @@ class FestivalRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function getBySearchParam(?string $name, ?string $sort, ?string $startDate, ?string $endDate): array
+    public function getBySearchParam(?string $name, ?string $sort, ?string $startDate, ?string $endDate, ?string $sort_price): array
     {
         $query = $this->createQueryBuilder('f');
 
@@ -52,6 +52,10 @@ class FestivalRepository extends ServiceEntityRepository
 
         if ($sort === 'asc' || $sort === 'desc') {
             $query->orderBy('f.name', $sort);
+        }
+
+        if ($sort_price == 'asc' || $sort_price == 'desc') {
+            $query->orderBy('f.price', $sort_price);
         }
 
         if ($startDate && $endDate) {

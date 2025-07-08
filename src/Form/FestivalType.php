@@ -18,6 +18,7 @@ class FestivalType extends AbstractType
             ->add('location')
             ->add('start_date')
             ->add('end_date')
+            ->add('price')
             ->add('bands', EntityType::class, [
                 'class' => Band::class,
                 'choice_label' => 'name',

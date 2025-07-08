@@ -22,13 +22,13 @@ final class HomeController extends AbstractController
             return count($b->getBookings()) <=> count($a->getBookings());
         });
 
-        // usort($best_deals, function (Festival $a, Festival $b) {
-        //    return count($b->getPrice()) <=> count($a->getPrice());
-        // });
+        usort($best_deals, function (Festival $a, Festival $b) {
+            return $a->getPrice() <=> $b->getPrice();
+        });
 
         return $this->render('index.html.twig', [
             'most_featured' => array_slice($most_featured, 0, 5),
-            // 'best_deals' => array_slice($best_deals, 0, 5)
+            'best_deals' => array_slice($best_deals, 0, 5),
         ]);
     }
 }

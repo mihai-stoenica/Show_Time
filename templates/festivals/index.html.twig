@@ -11,6 +11,9 @@
 {% set currentSort = app.request.get('sort') %}
 {% set newSort = currentSort == 'asc' ? 'desc' : 'asc' %}
 
+{% set currentSort_price = app.request.get('sort_price') %}
+{% set newSort_price = currentSort_price == 'asc' ? 'desc' : 'asc' %}
+
 {% block searchBar %}
     <div class="flex flex-row justify-center">
         <form method="GET" action="{{ path('app_festivals_user') }}">
@@ -43,7 +46,8 @@
                     </div>
                     <ul tabindex="0" class="dropdown-content menu rounded-box z-1 w-52 p-2 shadow-sm bg-base-100 ">
                         <li>
-                            <button type="submit" name="sort" value="{{ newSort }}">
+                            <button type="submit" name="sort" value="{{ newSort }}"
+                                    class="flex flex-row justify-between">
                                 <span>Name</span>
                                 {% if(currentSort == 'asc') %}
                                     <svg xmlns="http://www.w3.org/2000/svg" class="size-5 ml-2" fill="none"
@@ -61,7 +65,27 @@
                                     </svg>
                                 {% endif %}
                             </button>
-
+                        </li>
+                        <li>
+                            <button type="submit" name="sort_price" value="{{ newSort_price }}"
+                                    class="flex flex-row justify-between">
+                                <span>Price</span>
+                                {% if(currentSort_price == 'asc') %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5 ml-2" fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M4.5 15.75l7.5-7.5 7.5 7.5"/>
+                                    </svg>
+                                {% else %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5 ml-2" fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                                    </svg>
+                                {% endif %}
+                            </button>
                         </li>
                         <li class="p-2">
                             <label class="label">
@@ -95,11 +119,12 @@
 {% endblock %}
 
 {% block content %}
+    
     <div class="flex flex-col h-full overflow-hidden ">
 
         <div class="flex-grow w-full overflow-y-hidden h-full">
-            <div class="flex flex-col items-center overflow-y-auto h-full my-10 ">
-                <div class="grid grid-cols-4 gap-4">
+            <div class="flex flex-col items-center overflow-y-auto h-[90%] my-10 ">
+                <div class="grid grid-cols-4 gap-4 ">
                     {% for festival in festivals %}
                         {% include './festival/_card.html.twig' with {'festival': festival } %}
                     {% endfor %}

@@ -1,0 +1,58 @@
+{% extends './layouts/home.html.twig' %}
+
+{% block title %}Your Bookings{% endblock %}
+
+
+
+{% block content %}
+
+    <div class="overflow-x-auto flex flex-row items-center justify-center mt-6">
+        <div
+            class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 overflow-y-auto max-h-[500px] w-[60%] ">
+            <table class="table">
+                <!-- head -->
+                <thead class="sticky top-0 bg-base-300">
+                <tr class="text-center">
+                    <th>Festival</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for booking in bookings %}
+                    <tr class="text-center">
+                        <td>{{ booking.festival.name }}</td>
+                        <td>{{ booking.fullName }}</td>
+                        <td>
+                            <div>{{ booking.festival.startDate|date('d/m/Y') }}
+                                - {{ booking.festival.endDate|date('d/m/Y') }}</div>
+                        </td>
+                        <td>{{ booking.festival.price }}$</td>
+                        <td>
+                            <form method="post" action="{{ path('app_booking_user_cancel', {'id': booking.id}) }}"
+                                  onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ booking.id) }}">
+                                <button class="btn btn-ghost">cancel</button>
+                            </form>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot class="sticky bottom-0 bg-base-300">
+                <tr class="text-center">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Total price: ${{ totalPrice }}</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}

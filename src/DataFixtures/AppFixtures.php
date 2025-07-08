@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Band;
-use App\Enum\MusicGenre;
+use App\Entity\Festival;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -11,38 +11,60 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $bands = [
-            ['name' => 'The Rolling Stones', 'genre' => MusicGenre::Rock],
-            ['name' => 'Daft Punk', 'genre' => MusicGenre::Electronic],
-            ['name' => 'BTS', 'genre' => MusicGenre::KPop],
-            ['name' => 'Metallica', 'genre' => MusicGenre::Metal],
-            ['name' => 'Adele', 'genre' => MusicGenre::Soul],
-            ['name' => 'Coldplay', 'genre' => MusicGenre::Alternative],
-            ['name' => 'Eminem', 'genre' => MusicGenre::Rap],
-            ['name' => 'Miles Davis Quintet', 'genre' => MusicGenre::Jazz],
-            ['name' => 'The Beatles', 'genre' => MusicGenre::Pop],
-            ['name' => 'Green Day', 'genre' => MusicGenre::Punk],
-            ['name' => 'Imagine Dragons', 'genre' => MusicGenre::Indie],
-            ['name' => 'The Weeknd', 'genre' => MusicGenre::RnB],
-            ['name' => 'Bon Iver', 'genre' => MusicGenre::Folk],
-            ['name' => 'Skrillex', 'genre' => MusicGenre::Dubstep],
-            ['name' => 'Nirvana', 'genre' => MusicGenre::Grunge],
-            ['name' => 'Linkin Park', 'genre' => MusicGenre::Hardcore],
-            ['name' => 'Radiohead', 'genre' => MusicGenre::Alternative],
-            ['name' => 'Arctic Monkeys', 'genre' => MusicGenre::Indie],
-            ['name' => 'Beethoven Ensemble', 'genre' => MusicGenre::Classical],
-            ['name' => 'Florence + The Machine', 'genre' => MusicGenre::Soul],
-            ['name' => 'Deadmau5', 'genre' => MusicGenre::House],
-            ['name' => 'Bob Marley & The Wailers', 'genre' => MusicGenre::Reggae],
-            ['name' => 'Gorillaz', 'genre' => MusicGenre::Electronic],
-            ['name' => 'Ludwig Göransson Orchestra', 'genre' => MusicGenre::Soundtrack],
+        $festivalData = [
+            ['name' => 'Sunblast Festival', 'location' => 'Barcelona'],
+            ['name' => 'Echo Valley', 'location' => 'Prague'],
+            ['name' => 'Nightwave', 'location' => 'Berlin'],
+            ['name' => 'Meadow Rave', 'location' => 'Amsterdam'],
+            ['name' => 'Skyline Sounds', 'location' => 'Paris'],
+            ['name' => 'Aurora Beats', 'location' => 'Oslo'],
+            ['name' => 'Firelight Fest', 'location' => 'Budapest'],
+            ['name' => 'River Rhythms', 'location' => 'Vienna'],
+            ['name' => 'Crystal Vibes', 'location' => 'Zurich'],
+            ['name' => 'Twilight Echoes', 'location' => 'Helsinki'],
+            ['name' => 'Stormpulse', 'location' => 'Copenhagen'],
+            ['name' => 'Bass Horizon', 'location' => 'Lisbon'],
+            ['name' => 'Lunar Bloom', 'location' => 'Stockholm'],
+            ['name' => 'Neon Grove', 'location' => 'Warsaw'],
+            ['name' => 'Solar Sounds', 'location' => 'Munich'],
+            ['name' => 'Echo Drift', 'location' => 'Reykjavik'],
+            ['name' => 'Radiowave', 'location' => 'London'],
+            ['name' => 'Nocturne Pulse', 'location' => 'Milan'],
+            ['name' => 'Velvet Jam', 'location' => 'Brussels'],
+            ['name' => 'Crescendo Field', 'location' => 'Athens'],
         ];
 
-        foreach ($bands as $data) {
-            $band = new Band();
-            $band->setName($data['name']);
-            $band->setGenre($data['genre']);
-            $manager->persist($band);
+        foreach ($festivalData as $data) {
+            $festival = new Festival();
+            $festival->setName($data['name']);
+            $festival->setLocation($data['location']);
+
+            // Random start and end dates
+            $startDate = new \DateTime('+' . random_int(1, 30) . ' days');
+            $endDate = (clone $startDate)->modify('+' . random_int(1, 3) . ' days');
+            $festival->setStartDate($startDate);
+            $festival->setEndDate($endDate);
+
+            // Random price between 20 and 100
+            $festival->setPrice(mt_rand(2000, 10000) / 100);
+
+            // Add 3 to 6 random bands with ID between 12 and 35
+            $bandCount = random_int(3, 6);
+            $bandIds = array_rand(array_flip(range(12, 35)), $bandCount);
+
+            if (!is_array($bandIds)) {
+                $bandIds = [$bandIds]; // Ensure it's always an array
+            }
+
+            foreach ($bandIds as $bandId) {
+                // Use reference or load manually if not using BandFixtures
+                $band = $manager->getRepository(Band::class)->find($bandId);
+                if ($band) {
+                    $festival->addBand($band);
+                }
+            }
+
+            $manager->persist($festival);
         }
 
         $manager->flush();

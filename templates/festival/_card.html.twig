@@ -4,12 +4,48 @@
             src="{{ asset('images/festival card.jpg') }}"
             alt="Festival"/>
     </figure>
+
     <div class="card-body">
-        <h2 class="card-title">{{ festival.name }}</h2>
+        <div class="flex flex-row w-full items-center justify-between">
+            <h2 class="text-lg font-bold w-2/3 truncate">{{ festival.name }}</h2>
+
+            <a class="underline cursor-pointer"
+               onclick="document.getElementById('modal-{{ festival.id }}').showModal()">See
+                lineup
+            </a>
+
+            <dialog id="modal-{{ festival.id }}" class="modal ">
+                <div class="modal-box">
+                    <h3 class="text-lg font-bold text-black">{{ festival.name }} - Lineup</h3>
+
+                    {% if festival.bands|length > 0 %}
+                        <ul class="py-2">
+                            {% for band in festival.bands %}
+                                <li class="text-black">🎵 {{ band.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="py-2 text-black">No bands available.</p>
+                    {% endif %}
+
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <button class="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
+
+
+        </div>
+
+
         <p>📅{{ festival.startDate|date('d/m/Y') }} - {{ festival.endDate|date('d/m/Y') }}</p>
         <p>📍{{ festival.location }}</p>
-        <div class="card-actions justify-end">
+        <div class="card-actions justify-between items-center">
+            <h1 class="text-xl">💸${{ festival.price }}</h1>
             <a class="btn btn-primary" href="{{ path('app_booking_new', {'id': festival.id}) }}">Book now</a>
         </div>
     </div>
 </div>
+

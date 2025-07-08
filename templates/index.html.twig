@@ -44,7 +44,7 @@
         <div class="flex flex-col items-center w-80">
             <h2 class="text-xl font-bold mb-4 text-center  pb-2 w-full">💰Best Deals</h2>
             <section class="carousel w-80 overflow-x-auto whitespace-nowrap space-x-4">
-                {% for festival in most_featured %}
+                {% for festival in best_deals %}
                     <div class="carousel-item w-80 inline-block">
                         {% include './festival/_card.html.twig' with {'festival': festival } %}
                     </div>

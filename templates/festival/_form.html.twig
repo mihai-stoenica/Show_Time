@@ -18,6 +18,10 @@
     {{ form_widget(form.end_date, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
     {{ form_errors(form.end_date) }}
 
+    {{ form_label(form.price) }}
+    {{ form_widget(form.price, {'attr': {'class': 'px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
+    {{ form_errors(form.price) }}
+
     {{ form_label(form.bands) }}
     {{ form_widget(form.bands, {'attr': {'class': 'h-[100px] w-[100%] px-[4px] py-[1px] border rounded mt-[5px] mb-[10px]'}}) }}
     {{ form_errors(form.bands) }}

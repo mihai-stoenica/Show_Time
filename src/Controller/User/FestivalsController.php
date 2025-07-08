@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Entity\Festival;
 use App\Repository\FestivalRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,13 +17,22 @@ final class FestivalsController extends AbstractController
     {
         $nameParam = $request->query->get('search');
         $sortByNameParam = $request->query->get('sort');
+        $sortByPriceParam = $request->query->get('sort_price');
         $startDateParam = $request->query->get('startDate');
         $endDateParam = $request->query->get('endDate');
 
-        $festivals = $festivalRepository->getBySearchParam($nameParam, $sortByNameParam, $startDateParam, $endDateParam);
+        $festivals = $festivalRepository->getBySearchParam($nameParam, $sortByNameParam, $startDateParam, $endDateParam, $sortByPriceParam);
 
         return $this->render('festivals/index.html.twig', [
             'festivals' => $festivals,
+        ]);
+    }
+
+    #[Route('/festivals/{id}', name: 'app_festivals_user_show')]
+    public function show(Festival $festival): Response
+    {
+        return $this->render('festivals/show.html.twig', [
+            'festival' => $festival,
         ]);
     }
 }
