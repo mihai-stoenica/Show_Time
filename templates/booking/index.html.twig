@@ -10,6 +10,7 @@
                     <th>Email</th>
                     <th>Full Name</th>
                     <th>Festival</th>
+                    <th>User Id</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -32,6 +33,13 @@
                         </td>
                         <td>
                             <div>{{ booking.festival.name }}</div>
+                        </td>
+                        <td>
+                            {% if booking.user != null %}
+                                <div>{{ booking.user.id }}</div>
+                            {% else %}
+                                <div>guest</div>
+                            {% endif %}
                         </td>
                         <th>
                             <a href="#" class="btn btn-ghost btn-s">view</a>

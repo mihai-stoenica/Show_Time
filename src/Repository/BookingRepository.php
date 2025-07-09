@@ -40,4 +40,41 @@ class BookingRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function computeTotalRevenue()
+    {
+        $bookings = $this->findAll();
+        $total = 0;
+        foreach ($bookings as $booking) {
+            $total += $booking->getFestival()->getPrice();
+        }
+
+        return $total;
+    }
+
+    public function getNonGuestRevenue(): float
+    {
+        $bookings = $this->findAll();
+        $nonGuestRevenue = 0;
+        foreach ($bookings as $booking) {
+            if ($booking->getUser() != null) {
+                $nonGuestRevenue += $booking->getFestival()->getPrice();
+            }
+        }
+        return $nonGuestRevenue;
+    }
+
+    public function getGuestCount(): float
+    {
+        $bookings = $this->findAll();
+        $guestCount = 0;
+        foreach ($bookings as $booking) {
+            if ($booking->getUser() == null) {
+                $guestCount += 1;
+            }
+        }
+        return $guestCount;
+    }
+
+
 }

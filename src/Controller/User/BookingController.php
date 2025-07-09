@@ -44,16 +44,14 @@ final class BookingController extends AbstractController
     }
 
     #[Route('/', name: 'app_booking_user_index', methods: ['GET'])]
-    public function show(Booking $booking): Response
+    public function show(): Response
     {
-
         if ($this->getUser()) {
-
             $bookings = $this->getUser()->getBookings();
             $totalPrice = $this->getUser()->computeTotalPrice();
 
             return $this->render('booking/user_bookings.html.twig', [
-                'bookings' => $this->getUser()->getBookings(),
+                'bookings' => $bookings,
                 'totalPrice' => $totalPrice,
             ]);
         }

@@ -1,0 +1,75 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block content %}
+
+    <div>
+        <div class=" overflow-y-scroll max-h-[500px]">
+            <table class="table">
+                <thead class="sticky top-0 bg-base-200 z-2">
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- row 1 -->
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            <div>{{ user.id }}</div>
+                        </td>
+                        <td>
+                            <div class="font-bold">{{ user.email }}</div>
+                        </td>
+                        <td>
+                            {% for role in user.roles %}
+                                <div>{{ role }}</div>
+                            {% endfor %}
+                        </td>
+
+                        <th>
+                            <button class="btn btn-ghost" popovertarget="popover-{{ user.id }}"
+                                    style="anchor-name:--anchor-{{ user.id }}">
+                                edit roles
+                            </button>
+                            <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm overflow-x-hidden"
+                                popover id="popover-{{ user.id }}" style="position-anchor:--anchor-{{ user.id }}">
+                                <form method="POST" action="{{ path('app_user_update_roles', { id: user.id }) }}"
+                                      class="menu p-4 w-52 rounded-box bg-base-100 shadow-sm flex flex-col gap-2">
+                                    <input type="hidden" name="_token" data-controller="csrf-protection"
+                                           value="{{ csrf_token('edit_roles' ~ user.id) }}">
+
+                                    {% set available_roles = ['ROLE_USER', 'ROLE_ADMIN'] %}
+
+                                    {% for role in available_roles %}
+                                        <label class="label cursor-pointer">
+                                            <input type="checkbox" name="roles[]" value="{{ role }}"
+                                                   {% if role in user.roles %}checked{% endif %}
+                                                   class="checkbox checkbox-sm mr-2"/>
+                                            <span class="label-text">{{ role }}</span>
+                                        </label>
+                                    {% endfor %}
+
+                                    <button type="submit" class="btn btn-sm btn-primary mt-2">Save</button>
+                                </form>
+                            </ul>
+                        </th>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+                <!-- foot -->
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}

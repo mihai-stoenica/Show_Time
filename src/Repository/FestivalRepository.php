@@ -69,4 +69,26 @@ class FestivalRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    public function getMostFeatured(): array
+    {
+        $most_featured = $this->findAll();
+
+        usort($most_featured, function (Festival $a, Festival $b) {
+            return count($b->getBookings()) <=> count($a->getBookings());
+        });
+
+        return $most_featured;
+    }
+
+    public function getBestDeals(): array
+    {
+        $best_deals = $this->findAll();
+
+        usort($best_deals, function (Festival $a, Festival $b) {
+            return $a->getPrice() <=> $b->getPrice();
+        });
+
+        return $best_deals;
+    }
 }

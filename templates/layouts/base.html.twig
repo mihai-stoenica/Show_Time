@@ -13,12 +13,17 @@
 <body data-theme="dark" class="h-full overflow-hidden">
 {% block body %}
     <div class="h-full grid grid-cols-[250px_1fr]">
-        <aside class="bg-base-200 p-4 overflow-y-auto">
+        <aside class="bg-base-200 p-4 overflow-y-auto flex flex-col items-center">
             <h2 class="text-xl font-bold mb-4">Admin</h2>
             <ul class="menu">
-                <li><a href="{{ path('app_band_index') }}">Bands</a></li>
-                <li><a href="{{ path('app_festival_index') }}">Festivals</a></li>
-                <li><a href="{{ path('app_booking_index') }}">Bookings</a></li>
+                <li><a class="mb-2 btn btn-ghost btn-sm" href="{{ path('app_dashboard_index') }}">Dashboard</a></li>
+                <li><a class="mb-2 btn btn-ghost btn-sm" href="{{ path('app_band_index') }}">Bands</a></li>
+                <li><a class=" mb-2 btn btn-ghost btn-sm" href="{{ path('app_festival_index') }}">Festivals</a></li>
+                <li><a class=" mb-2 btn btn-ghost btn-sm" href="{{ path('app_booking_index') }}">Bookings</a></li>
+                <li><a class="mb-2 btn btn-ghost btn-sm" href="{{ path('app_user_index') }}">Users</a></li>
+                <li><a class="mb-2 btn btn-soft btn-sm" href={{ path('app_home') }}>Home</a></li>
+                <li><a class="btn btn-error btn-sm" href="/logout">Logout</a></li>
+
             </ul>
         </aside>
 

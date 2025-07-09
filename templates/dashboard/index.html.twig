@@ -1,0 +1,58 @@
+{% extends './layouts/base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+    <div class="grid grid-cols-3 gap-4">
+        <div class="card card-border bg-base-300 w-96 h-full">
+            <div class="card-body">
+                <h2 class="card-title underline">Financial</h2>
+                <h2>Total revenue: <span class="font-bold">{{ totalRevenue }}$</span></h2>
+                <h2>Medium revenue/booking: <span class="font-bold">{{ mediumRevenue|round(2) }}$</span></h2>
+                <h2>Medium revenue/user: <span class="font-bold">{{ mediumUserRevenue|round(2) }}$</span></h2>
+            </div>
+        </div>
+
+        <div class="card card-border bg-base-300 w-96 h-full">
+            <div class="card-body">
+                <h2 class="card-title underline">Users</h2>
+                <div class="flex flex-row items-center">
+                    <h2 class="mr-10">Non guest users percent:</h2>
+                    <div class="radial-progress" style="--value:70;" aria-valuenow="70"
+                         role="progressbar">{{ loggedUserPercent|round(1) }}%
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card card-border bg-base-300 w-96 h-full">
+            <div class="card-body">
+                <h2 class="card-title underline">Festivals</h2>
+                {% for festival in mostFeatured %}
+                    <div class="flex flex-row items-center">
+                        <p class="truncate max-w-[90px]"><a
+                                href="{{ path('app_festival_show', {'id': festival.id}) }}">{{ festival.name }}</a></p>
+                        <progress class="progress progress-success w-56" value="{{ festival.bookings|length }}"
+                                  max="{{ mostFeatured[0].bookings|length }}"></progress>
+                        <span>({{ festival.bookings|length }})</span>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="card card-border bg-base-300 w-96 h-full">
+            <div class="card-body">
+                <h2 class="card-title underline">Bookings</h2>
+                <h2>Total bookings: <span class="font-bold">{{ bookingCount }}</span></h2>
+                <h2>Guest bookings: <span class="font-bold">{{ guestCount }}</span></h2>
+                <h2>User bookings: <span class="font-bold">{{ bookingCount-guestCount }}</span></h2>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}
