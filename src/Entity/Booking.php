@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\BookingStatus;
 use App\Repository\BookingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -29,6 +30,15 @@ class Booking
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'bookings')]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
+
+    #[Assert\NotBlank]
+    #[ORM\Column(enumType: BookingStatus::class)]
+    private BookingStatus $status;
+
+    public function __construct()
+    {
+        $this->status = BookingStatus::pending;
+    }
 
     public function getId(): ?int
     {
@@ -80,5 +90,26 @@ class Booking
     {
         $this->user = $user;
         return $this;
+    }
+
+    public function isSuccessful(): bool
+    {
+        return $this->getStatus() == BookingStatus::successful;
+    }
+
+    public function getStatus(): BookingStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(BookingStatus $status): static
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->getStatus() == BookingStatus::pending;
     }
 }

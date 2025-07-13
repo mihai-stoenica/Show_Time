@@ -47,12 +47,15 @@ final class BookingController extends AbstractController
     public function show(): Response
     {
         if ($this->getUser()) {
-            $bookings = $this->getUser()->getBookings();
+            $pending_bookings = $this->getUser()->getPendingBookings();
+            $successful_bookings = $this->getUser()->getSuccessfulBookings();
             $totalPrice = $this->getUser()->computeTotalPrice();
 
             return $this->render('booking/user_bookings.html.twig', [
-                'bookings' => $bookings,
+                'pending_bookings' => $pending_bookings,
+                'successful_bookings' => $successful_bookings,
                 'totalPrice' => $totalPrice,
+                'stripe_public_key' => $_ENV['STRIPE_PUBLIC_KEY'],
             ]);
         }
         return $this->redirectToRoute('app_login');

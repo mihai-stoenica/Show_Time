@@ -144,13 +144,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function computeTotalPrice(): float
     {
         $totalPrice = 0;
-        if ($this->bookings->count() > 0) {
-            foreach ($this->bookings as $booking) {
+        if ($this->getPendingBookings()->count() > 0) {
+            foreach ($this->getPendingBookings() as $booking) {
                 $totalPrice += $booking->getFestival()->getPrice();
             }
         }
 
         return $totalPrice;
+    }
+
+    public function getPendingBookings(): Collection
+    {
+        $pendingBookings = new ArrayCollection();
+        foreach ($this->bookings as $booking) {
+            if ($booking->isPending()) {
+                $pendingBookings[] = $booking;
+            }
+        }
+        return $pendingBookings;
+    }
+
+    public function getSuccessfulBookings(): Collection
+    {
+        $successfulBookings = new ArrayCollection();
+        foreach ($this->bookings as $booking) {
+            if ($booking->isSuccessful()) {
+                $successfulBookings[] = $booking;
+            }
+        }
+        return $successfulBookings;
     }
 
 }
